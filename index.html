@@ -2,1363 +2,866 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="color-scheme" content="light">
-    <title>تولدت مبارک سوگند جان 🥳</title>
-
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصر صورتی تولد سوگند 🌸✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET & VARIABLES ===== */
+        /* --- بخش اول: متغیرهای رنگی دخترانه و تنظیمات پایه --- */
+        :root {
+            --primary-pink: #ff758f;
+            --light-pink: #ffb3c1;
+            --baby-pink: #ffe5ec;
+            --deep-rose: #c9184a;
+            --gold-sparkle: #ffb703;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-pink: rgba(255, 117, 143, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
         }
 
-        :root {
-            --color-bg-light: #fef6f0;
-            --color-bg-dark: #fde8dc;
-            --color-primary: #f9a95b;
-            --color-secondary: #f7c948;
-            --color-accent: #e8833a;
-            --color-gold: #fbc531;
-            --color-text-main: #4a2c1a;
-            --glass-bg: rgba(255, 248, 240, 0.55);
-            --glass-border: rgba(255, 215, 175, 0.7);
-            --glass-shadow: 0 20px 40px rgba(249, 169, 91, 0.25);
-            --glass-blur: blur(14px);
-            --font-family: 'Vazirmatn', sans-serif;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background: linear-gradient(135deg, var(--color-bg-light), var(--color-bg-dark));
-            background-color: var(--color-bg-light);
-            color: var(--color-text-main);
+        body, html {
+            width: 100%;
             min-height: 100vh;
-            overflow: hidden;
-            transition: background 1.5s ease;
-        }
-        body.phase-2-active {
-            background-color: #fde8dc;
-            background: linear-gradient(135deg, #fef0e6, #fddcc8);
-        }
-
-        /* ===== CURSOR & TRAILS ===== */
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
-            mix-blend-mode: multiply;
-            box-shadow: 0 0 15px var(--color-primary);
-            display: none;
-        }
-        @media (hover: hover) and (pointer: fine) {
-            #custom-cursor {
-                display: block;
-            }
-        }
-        #custom-cursor.hovering {
-            width: 45px;
-            height: 45px;
-            background: rgba(249, 169, 91, 0.3);
-            border: 2px solid var(--color-primary);
-        }
-        .cursor-trail {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            animation: trail-fade 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-        }
-        @keyframes trail-fade {
-            0% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.3) translateY(-30px);
-            }
-        }
-
-        /* ===== BACKGROUND CANVAS / RAIN ===== */
-        #canvas-container,
-        #dom-rain-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        #canvas-container {
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 2s ease;
-        }
-        #dom-rain-container {
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        /* ===== APP CONTAINER ===== */
-        .app-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            height: 100vh;
-        }
-
-        /* ===== PHASE 1 : GATEWAY ===== */
-        #phase-1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        #phase-1.hidden-phase {
-            opacity: 0;
-            transform: scale(1.1) translateY(-30px);
-            pointer-events: none;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 4rem 2.5rem;
-            text-align: center;
-            width: 92%;
-            max-width: 550px;
-            box-shadow: var(--glass-shadow);
-            animation: float-slow 5s ease-in-out infinite;
-        }
-
-        .birthday-icon {
-            font-size: 5.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            filter: drop-shadow(0 15px 15px rgba(249, 169, 91, 0.4));
-            animation: float-epic 4s ease-in-out infinite;
-            transition: transform 0.3s;
-        }
-
-        .typewriter-title {
-            font-size: 1.9rem;
-            font-weight: 800;
-            line-height: 1.7;
-            margin-bottom: 2.5rem;
-            min-height: 100px;
-            color: var(--color-accent);
-        }
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            background-color: var(--color-primary);
-            margin-right: 5px;
-            animation: blink 0.8s infinite;
-        }
-
-        .btn-enter {
-            padding: 18px 45px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            font-family: inherit;
-            color: #fff;
-            background: linear-gradient(45deg, #f9a95b, #e8833a, #f9a95b);
-            background-size: 200% auto;
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(249, 169, 91, 0.5);
-            animation: heartbeat 2s infinite, gradient-flow 3s linear infinite;
-            transition: transform 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-enter:active {
-            transform: scale(0.92);
-        }
-
-        /* ===== PHASE 2 : MAIN WORLD ===== */
-        #phase-2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow-y: auto;
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--baby-pink);
             overflow-x: hidden;
-            padding: 4rem 1.5rem;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            scroll-behavior: smooth;
+        }
+
+        /* اسکرول‌بار سفارشی و صورتی */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--baby-pink);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-pink);
+            border-radius: 10px;
+        }
+
+        /* --- بخش دوم: انیمیشن‌های بک‌گراند و اتمسفر سایت --- */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 30%, #ffb3c1 70%, #ff85a1 100%);
+            background-size: 400% 400%;
+            animation: flowBackground 20s ease infinite;
+            z-index: -3;
+        }
+
+        @keyframes flowBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ذرات درخشان معلق */
+        #sparkles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
+            z-index: -1;
+        }
+
+        /* کانواس آتش‌بازی اصلی */
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* --- بخش سوم: هدر و منوی ناوبری شناور --- */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 10px 30px;
+            border-radius: 40px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 10px 30px var(--shadow-pink);
+            z-index: 100;
+        }
+
+        .nav-item {
+            color: var(--deep-rose);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        /* --- بخش چهارم: ساختار محتوایی اصلی (سکشن‌ها) --- */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .hero-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        #phase-2.visible-phase {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-            background-color: #fef0e6;
-            background: linear-gradient(135deg, #fef0e6, #fddcc8);
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Headers --- */
-        .header-section {
-            margin-bottom: 3.5rem;
-            text-align: center;
-        }
-        .welcome-title {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #c06c3a;
-            text-shadow: 0 0 15px rgba(255, 215, 175, 0.8), 0 0 30px rgba(249, 169, 91, 0.4);
-            margin-bottom: 1rem;
-            animation: text-glow-light 2s alternate infinite;
-        }
-        .subtitle {
-            font-size: 1.3rem;
-            color: #8a5a3a;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-
-        /* --- Quote Slider (birthday wishes) --- */
-        .quote-slider {
-            width: 100%;
-            max-width: 800px;
-            min-height: 200px;
-            background: rgba(255, 248, 240, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 215, 175, 0.8);
-            border-radius: 35px;
-            padding: 3.5rem 2rem;
-            text-align: center;
-            margin-bottom: 5rem;
-            position: relative;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 20px 40px rgba(249, 169, 91, 0.2);
+            text-align: center;
+            min-height: 80vh;
         }
-        .quote-slider::before {
-            content: '🎂';
+
+        /* افکت مرواریدی تبریک اصلی */
+        .main-title-box {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 60px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(255, 117, 143, 0.4);
+            animation: floatCard 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .main-title-box h1 {
+            font-family: 'Lalezar', cursive;
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--deep-rose), #ff477e, #ff758f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.05));
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--deep-rose);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        /* --- بخش پنجم: کیک تولد تعاملی سه بعدی (CSS Art) --- */
+        .cake-container {
+            margin-top: 50px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 140px;
+            background: #fec5bb;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 200px;
+            height: 20px;
+            background: #fae1dd;
+        }
+
+        .cake::after {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 200px;
+            height: 20px;
+            background: #f8ad9d;
+        }
+
+        .cream-top {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: #ffffff;
+            border-radius: 20px;
+            display: flex;
+        }
+
+        .candle {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 50px;
+            background: linear-gradient(to right, #ffb3c1, #fff);
+            border-radius: 5px;
+        }
+
+        .flame {
             position: absolute;
             top: -20px;
-            right: 30px;
-            font-size: 5rem;
-            opacity: 0.3;
-        }
-        .quote-slide {
-            position: absolute;
-            font-size: 1.7rem;
-            line-height: 1.8;
-            opacity: 0;
-            transform: scale(0.9) translateY(15px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            color: #4a2c1a;
-            width: 85%;
-            font-weight: bold;
-        }
-        .quote-slide.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* --- Envelope (birthday letter) --- */
-        .envelope-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 6rem;
-            width: 100%;
-        }
-        .section-title {
-            font-size: 2.2rem;
-            color: #c06c3a;
-            margin-bottom: 3.5rem;
-            position: relative;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            font-weight: 900;
-        }
-        .section-title::after {
-            content: '🎈';
-            position: absolute;
-            bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 1.8rem;
-        }
-
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 210px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .envelope-wrapper:hover {
-            transform: translateY(-5px);
-        }
-
-        .envelope {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #e8833a;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 20px 40px rgba(249, 169, 91, 0.4);
-            z-index: 3;
-        }
-        .envelope::before {
-            content: '';
-            position: absolute;
-            border-top: 105px solid transparent;
-            border-bottom: 105px solid transparent;
-            border-left: 160px solid #d06e2e;
-            left: 0;
-            top: 0;
-            z-index: 4;
-        }
-        .envelope::after {
-            content: '';
-            position: absolute;
-            border-top: 105px solid transparent;
-            border-bottom: 105px solid transparent;
-            border-right: 160px solid #c46226;
-            right: 0;
-            top: 0;
-            z-index: 4;
-        }
-        .envelope-bottom {
-            position: absolute;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-bottom: 105px solid #f9a95b;
-            bottom: 0;
-            left: 0;
-            z-index: 5;
-        }
-        .flap {
-            position: absolute;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 115px solid #f7b06a;
-            top: 0;
-            left: 0;
-            z-index: 6;
-            transform-origin: top;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .letter {
-            position: absolute;
-            width: 90%;
-            height: 190px;
-            background: #fffbf5;
-            top: 10px;
-            left: 5%;
-            border-radius: 8px;
-            z-index: 2;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.1s;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .letter p {
-            color: #4a2c1a;
-            font-size: 1.2rem;
-            text-align: center;
-            line-height: 1.7;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.5s 0.8s;
-        }
-
-        .envelope-wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-        .envelope-wrapper.open .letter {
-            transform: translateY(-140px);
-            z-index: 5;
-        }
-        .envelope-wrapper.open .letter p {
-            opacity: 1;
-        }
-
-        .click-hint {
-            position: absolute;
-            bottom: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #8a5a3a;
-            font-weight: bold;
-            font-size: 1rem;
-            animation: bounce 2s infinite;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* --- Polaroid Gallery (birthday memories) --- */
-        .gallery-section {
-            width: 100%;
-            max-width: 1000px;
-            margin-bottom: 7rem;
-        }
-        .polaroid-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            perspective: 1000px;
-        }
-
-        .polaroid {
-            background: #fff;
-            padding: 15px 15px 45px 15px;
-            box-shadow: 0 15px 35px rgba(249, 169, 91, 0.25);
-            width: 260px;
-            position: relative;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s;
-            transform: rotate(calc(var(--rot) * 1deg));
-            cursor: pointer;
-        }
-        .polaroid::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-3deg);
-            width: 90px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
-            backdrop-filter: blur(3px);
-            z-index: 2;
-        }
-        .polaroid:hover {
-            transform: scale(1.08) rotate(0deg);
-            z-index: 10;
-            box-shadow: 0 25px 50px rgba(249, 169, 91, 0.4);
-        }
-        .photo-placeholder {
-            width: 100%;
-            height: 230px;
-            background: linear-gradient(45deg, #fbc531, #f9a95b);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        .photo-placeholder::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-            transform: rotate(30deg);
-            animation: shine 5s infinite;
-        }
-        .polaroid p {
-            color: #333;
-            text-align: center;
-            margin-top: 15px;
-            font-family: 'Segoe Print', cursive, var(--font-family);
-            font-size: 1.1rem;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-
-        /* --- Magic Box (reasons to celebrate) --- */
-        .magic-box-section {
-            background: rgba(255, 248, 240, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            border: 2px solid rgba(255, 215, 175, 0.8);
-            padding: 4.5rem 2rem;
-            width: 100%;
-            max-width: 800px;
-            text-align: center;
-            margin-bottom: 6rem;
-            box-shadow: 0 15px 35px rgba(249, 169, 91, 0.15);
-        }
-        #compliment-text {
-            font-size: 1.7rem;
-            color: #8a5a3a;
-            min-height: 90px;
-            margin: 2.5rem 0;
-            line-height: 1.7;
-            font-weight: bold;
-        }
-        .btn-magic {
-            background: var(--color-primary);
-            border: none;
-            color: #fff;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            box-shadow: 0 10px 20px rgba(249, 169, 91, 0.4);
-        }
-        .btn-magic:hover,
-        .btn-magic:active {
-            background: var(--color-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(232, 131, 58, 0.5);
-        }
-
-        /* --- Floating Music Player (birthday song) --- */
-        .music-player {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(30, 20, 10, 0.85);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--color-primary);
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            box-shadow: 0 15px 30px rgba(249, 169, 91, 0.25);
-            z-index: 100;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 60px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .music-player.expanded {
-            width: 350px;
-            padding: 8px 15px;
-        }
-        .record-disk {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            background: #222;
-            border-radius: 50%;
-            border: 2px solid #555;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: spin 4s linear infinite;
-            animation-play-state: paused;
-        }
-        .record-disk::after {
-            content: '';
             width: 14px;
-            height: 14px;
-            background: var(--color-primary);
-            border-radius: 50%;
-        }
-        .music-player.playing .record-disk {
-            animation-play-state: running;
-        }
-        .music-info {
-            white-space: nowrap;
-            margin-right: 15px;
-            color: #fff;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .music-player.expanded .music-info {
-            opacity: 1;
-            transition-delay: 0.2s;
-        }
-        .music-info span {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--color-secondary);
-            margin-top: 3px;
-            white-space: normal;
-        }
-        .music-info strong {
-            font-size: 1rem;
+            height: 25px;
+            background: orange;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px orange;
+            animation: flicker 0.6s infinite alternate;
         }
 
-        /* --- Modal (for polaroid clicks) --- */
-        .modal {
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1) skewX(5deg); }
+        }
+
+        .candle.blown .flame {
             display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(255, 248, 240, 0.3);
-            backdrop-filter: blur(8px);
-            opacity: 0;
-            transition: opacity 0.4s;
         }
-        .modal.open {
+
+        .cake-instruction {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: var(--deep-rose);
+            font-weight: bold;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- بخش ششم: باکس کادو و نامه تعاملی --- */
+        .gift-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-color: #ff477e;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 15px 30px var(--shadow-pink);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        .gift-lid {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            width: 170px;
+            height: 30px;
+            background-color: #ff5c8a;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease;
+        }
+
+        .gift-box.open .gift-lid {
+            transform: translateY(-80px) rotate(-15deg);
+            opacity: 0;
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 100%;
+            background-color: var(--gold-sparkle);
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 30px;
+            background-color: var(--gold-sparkle);
+        }
+
+        /* پاکت نامه پنهان داخل کادو */
+        .letter-card {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            display: none;
+            border: 2px dashed var(--primary-pink);
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .letter-card.show {
+            display: block;
+            transform: scale(1);
             opacity: 1;
         }
 
-        .modal-content {
-            background: rgba(255, 248, 240, 0.9);
-            margin: 15% auto;
-            padding: 3rem;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(249, 169, 91, 0.25);
-            border: 2px solid #fff;
+        .letter-text {
+            font-size: 1.15rem;
+            color: #4a4a4a;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        /* --- بخش هفتم: بورد آرزوها و کارت‌های جادویی --- */
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .wish-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
+            transition: all 0.4s ease;
             position: relative;
-            transform: scale(0.7);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modal.open .modal-content {
-            transform: scale(1);
+            overflow: hidden;
         }
 
-        .close-button {
-            color: #e8833a;
+        .wish-card::before {
+            content: '🌸';
             position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .close-button:hover {
-            color: #c06c3a;
+            bottom: -10px;
+            left: -10px;
+            font-size: 4rem;
+            opacity: 0.1;
         }
 
-        .modal-message {
-            color: #4a2c1a;
+        .wish-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow-pink);
+            border-color: var(--primary-pink);
+        }
+
+        .wish-card h3 {
+            color: var(--deep-rose);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        /* --- بخش هشتم: دکمه بزرگ شلیک فشفشه دستی --- */
+        .feshfeshe-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff85a1, #ffb3c1);
+            padding: 50px;
+            border-radius: 40px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 15px 40px var(--shadow-pink);
+        }
+
+        .feshfeshe-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffd700);
+            background-size: 200% 200%;
+            animation: gradientBtn 3s linear infinite;
+            border: none;
+            padding: 20px 50px;
+            font-family: 'Vazirmatn', sans-serif;
             font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+
+        @keyframes gradientBtn {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .feshfeshe-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
+        }
+
+        /* موزیک پلیر شیک فانتزی */
+        .audio-player {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--glass-border);
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .player-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            line-height: 1.6;
         }
 
-        /* ===== KEYFRAMES ===== */
-        @keyframes float-epic {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-        @keyframes float-slow {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-        @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-        @keyframes fall-down {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-            15% {
-                transform: scale(1.05);
-            }
-            30% {
-                transform: scale(1);
-            }
-            45% {
-                transform: scale(1.05);
-            }
-            60%,
-            100% {
-                transform: scale(1);
-            }
-        }
-        @keyframes gradient-flow {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        @keyframes text-glow-light {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fbc531;
-            }
-            to {
-                text-shadow: 0 0 20px #fff, 0 0 30px #f9a95b;
-            }
-        }
-        @keyframes bounce {
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-5px) translateX(-50%);
-            }
-        }
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        @keyframes shine {
-            0% {
-                left: -50%;
-            }
-            20% {
-                left: 150%;
-            }
-            100% {
-                left: 150%;
-            }
+        .section-title {
+            font-family: 'Lalezar', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--deep-rose);
+            margin-bottom: 40px;
         }
 
-        /* ===== MOBILE TWEAKS ===== */
-        @media (max-width: 768px) {
-            .glass-card {
-                padding: 3.5rem 1.5rem;
-                border-radius: 35px;
-            }
-            .typewriter-title {
-                font-size: 1.4rem;
-                min-height: 70px;
-            }
-            .birthday-icon {
-                font-size: 5rem;
-            }
-            .btn-enter {
-                width: 100%;
-                font-size: 1.15rem;
-                padding: 16px 20px;
-            }
+        /* هدیه متحرک ماوس */
+        .sparkle-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--gold-sparkle);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: fadeOutSparkle 0.8s linear forwards;
+        }
 
-            .welcome-title {
-                font-size: 2.2rem;
-            }
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .quote-slider {
-                padding: 2.5rem 1.5rem;
-                min-height: 180px;
-                border-radius: 25px;
-            }
-            .quote-slide {
-                font-size: 1.3rem;
-                width: 95%;
-            }
-            .quote-slider::before {
-                font-size: 3.5rem;
-                top: -10px;
-                right: 15px;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .envelope-wrapper {
-                transform: scale(0.85);
-                margin-bottom: -20px;
-            }
-            .envelope-wrapper.open .letter {
-                transform: translateY(-120px);
-            }
-
-            .polaroid-grid {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-            .polaroid {
-                width: 80%;
-                max-width: 280px;
-            }
-            .polaroid p {
-                font-size: 1rem;
-            }
-            .polaroid:nth-child(1) {
-                transform: rotate(-4deg) translateX(-10px);
-            }
-            .polaroid:nth-child(2) {
-                transform: rotate(3deg) translateX(10px);
-            }
-            .polaroid:nth-child(3) {
-                transform: rotate(-2deg) translateX(-5px);
-            }
-            .polaroid.active-touch {
-                transform: scale(1.05) rotate(0deg);
-                z-index: 20;
-                box-shadow: 0 20px 40px rgba(249, 169, 91, 0.5);
-            }
-
-            .magic-box-section {
-                padding: 3rem 1.5rem;
-                border-radius: 30px;
-            }
-            #compliment-text {
-                font-size: 1.4rem;
-                min-height: 80px;
-                margin: 1.5rem 0;
-            }
-            .btn-magic {
-                font-size: 1.1rem;
-                padding: 12px 25px;
-                width: 100%;
-            }
-
-            .music-player {
-                bottom: 20px;
-                right: 20px;
-                box-shadow: 0 10px 20px rgba(249, 169, 91, 0.25);
-            }
-            .music-player.expanded {
-                width: 280px;
-            }
-            .music-info strong {
-                font-size: 0.9rem;
-            }
-            .music-info span {
-                font-size: 0.75rem;
-                line-height: 1.4;
-            }
-
-            .modal-content {
-                padding: 2.5rem 1.5rem;
-                margin: 30% auto;
-            }
-            .modal-message {
-                font-size: 1.2rem;
-            }
+        @keyframes fadeOutSparkle {
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.2) translateY(20px); }
         }
     </style>
 </head>
 <body>
 
-    <!-- CURSOR & RAIN CONTAINERS -->
-    <div id="custom-cursor"></div>
-    <div id="canvas-container"><canvas id="magic-canvas"></canvas></div>
-    <div id="dom-rain-container"></div>
+    <div class="bg-gradient"></div>
+    <div id="sparkles-container"></div>
+    <canvas id="fireworks-canvas"></canvas>
 
-    <!-- MUSIC PLAYER -->
-    <div class="music-player interactive" id="musicPlayer">
-        <div class="record-disk"></div>
-        <div class="music-info">
-            <strong>🎵 آهنگ تولد</strong>
-            <span>برای سوگند جان</span>
-        </div>
-        <audio id="bg-audio" loop><source src="" type="audio/mpeg"></audio>
+    <nav class="navbar">
+        <a href="#hero" class="nav-item active">خوش‌آمدی</a>
+        <a href="#gift" class="nav-item">صندوقچه کادو</a>
+        <a href="#wishes" class="nav-item">آرزوهای قشنگ</a>
+    </nav>
+
+    <div class="main-wrapper">
+
+        <section id="hero" class="hero-section">
+            <div class="main-title-box">
+                <h1>سوگند جان تولدت مبارک 💕</h1>
+                <p class="subtitle">امروز روز زیباتر شدن دنیاست...</p>
+                <p style="color: #666; max-width: 500px; margin: 0 auto; line-height: 1.8;">
+                    خوش‌آمدی به قصر اختصاصی تولدت! تمام این صفحه با عشق و برای درخشش تو دیزاین شده. روی شمع کلیک کن تا جادوی فشفشه‌ها شروع بشه!
+                </p>
+            </div>
+
+            <div class="cake-container" id="cakeContainer">
+                <div class="candle" id="mainCandle"><div class="flame"></div></div>
+                <div class="cake">
+                    <div class="cream-top"></div>
+                </div>
+                <div class="cake-instruction" id="cakeStatus">آرزو کن و شمع رو فوت کن! (کلیک کن) 🎂</div>
+            </div>
+        </section>
+
+        <section id="gift" class="gift-section">
+            <h2 class="section-title">یک سورپرایز درون صندوقچه... 🎁</h2>
+            <div class="gift-box" id="birthdayGift">
+                <div class="gift-lid"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-ribbon-h"></div>
+            </div>
+
+            <div class="letter-card" id="letterCard">
+                <h2 style="color: var(--deep-rose); margin-bottom: 20px; font-family: 'Lalezar'">نامه‌ای برای دختر بهار / تابستان 💌</h2>
+                <div class="letter-text">
+                    سوگند عزیزم، بعضی از آدم‌ها با آمدنشان به این دنیا، رنگ و بوی تازه‌ای به زندگی می‌بخشند. تو دقیقاً همان فردی هستی که با لبخندهای قشنگت، با مهربانی بی‌اندازه قلب کوچک و دخترانه‌ات و با حضور پر از مهرت، دنیا را به جای بهتری برای زندگی تبدیل کرده‌ای. <br><br>
+                    در روز میلادت، از صمیم قلبم آرزو می‌کنم که چرخ روزگار دقیقاً بر وفق مرادت بچرخد. آرزو می‌کنم هیچ‌وقت اشک به چشم‌های زیبایت نیاید مگر از سر شوق؛ هیچ‌وقت خنده از روی لب‌هایت محو نشود و هر روزت پر از موفقیت، هیجان، کادوهای رنگارنگ و حس‌های ناب پاستلی باشد. تو شایسته بهترین قله‌های این جهانی و مطمئنم سال جدید زندگیت، سال انفجار آرزوهای طلایی‌ات خواهد بود. تولدت مبارک ستاره درخشان ما! ✨🌸
+                </div>
+            </div>
+        </section>
+
+        <section id="wishes">
+            <h2 class="section-title">آرزوهای صورتی برای سوگند 💖</h2>
+            <div class="wishes-grid">
+                <div class="wish-card">
+                    <h3>آرزوی درخشش ⭐️</h3>
+                    <p style="color: #555; line-height: 1.7;">امیدوارم امسال به تمام اهدافی که توی دفترچه یادداشتت نوشتی برسی و مثل الماس توی همه مراحل زندگیت بدرخشی دختر قشنگ.</p>
+                </div>
+                <div class="wish-card">
+                    <h3>آرزوی آرامش 🍃</h3>
+                    <p style="color: #555; line-height: 1.7;">الهی دلت همیشه آروم باشه، دور و برت پر از آدم‌های امن و واقعی باشه و هر روزت رو با یک فرکانس مثبت و عالی شروع کنی.</p>
+                </div>
+                <div class="wish-card">
+                    <h3>آرزوی شادی‌های بی‌دلیل 🎈</h3>
+                    <p style="color: #555; line-height: 1.7;">از اون خنده‌های از ته دل برات آرزو می‌کنم که لپات گل بندازه و قند توی دلت آب بشه! همیشه شاد و پرانرژی بمونی.</p>
+                </div>
+                <div class="wish-card">
+                    <h3>آرزوی سلامتی و عشق 🌸</h3>
+                    <p style="color: #555; line-height: 1.7;">سلامتی، مهم‌ترین داراییه و در کنارش عشقی عمیق و پایدار از طرف خانواده و دوستات که همیشه پشتوانت باشن.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="feshfeshe-panel">
+            <h2 style="font-family: 'Lalezar'; font-size: 2.5rem; margin-bottom: 10px;">آسمان شب به افتخار تو نورانی میشه! 🎆</h2>
+            <p>روی دکمه زیر کلیک کن تا آسمون رو پر از فشفشه‌های صورتی، طلایی و قلبی کنی!</p>
+            <button class="feshfeshe-btn" id="megaFireworkBtn">شلیک فشفشه‌های جادویی 💥</button>
+        </section>
+
     </div>
 
-    <main class="app-container">
-        <!-- ===== PHASE 1 : ENTRY ===== -->
-        <section id="phase-1">
-            <div class="glass-card">
-                <div class="birthday-icon interactive">🎂</div>
-                <h1 class="typewriter-title">
-                    <span id="typewriter-text"></span><span class="cursor"></span>
-                </h1>
-                <button id="btn-enter-world" class="btn-enter interactive">
-                    وارد جشن تولد سوگند شو 🎉
-                </button>
-            </div>
-        </section>
-
-        <!-- ===== PHASE 2 : BIRTHDAY WORLD ===== -->
-        <section id="phase-2" class="hidden-phase">
-            <div class="header-section reveal">
-                <h1 class="welcome-title">🥳 تولدت مبارک سوگند جان!</h1>
-                <p class="subtitle">امروز روز خاص توست… همه‌چیز برای تو می‌درخشد ✨</p>
-            </div>
-
-            <!-- Quote Slider -->
-            <div class="quote-slider reveal">
-                <div class="quote-slide active">"تولدت مبارک! امیدوارم سال جدید پر از لبخند‌های قشنگ و لحظه‌های به‌یادماندنی باشه."</div>
-                <div class="quote-slide">"سوگند جان، امروز روز توست… از ته دل آرزو می‌کنم همیشه شاد و موفق باشی."</div>
-                <div class="quote-slide">"هر سال که می‌گذرد، تو با‌نشاط‌تر و زیباتر می‌شوی. تولدت مبارک!"</div>
-                <div class="quote-slide">"دوستی با تو یکی از بهترین هدیه‌های زندگی‌مه. روزت مبارک سوگند 🎈"</div>
-                <div class="quote-slide">"امیدوارم همه آرزوهای قشنگت تو این سال جدید برآورده بشه. تولدت مبارک!"</div>
-            </div>
-
-            <!-- Envelope (birthday letter) -->
-            <div class="envelope-section reveal">
-                <h2 class="section-title">یه نامه‌ی تولدی برات 💌</h2>
-                <div class="envelope-wrapper interactive" id="loveEnvelope">
-                    <div class="flap"></div>
-                    <div class="envelope"></div>
-                    <div class="envelope-bottom"></div>
-                    <div class="letter">
-                        <p id="letter-text">
-                            سوگند جان، تولدت مبارک! <br>
-                            دوست داشتم با یه نامه‌ی کوچیک بهت بگم که وجودت برای همه‌ی ما ارزشمنده. 
-                            روزت پر از شادی، خنده و عشق باشه. 🎂🎁
-                        </p>
-                    </div>
-                    <div class="click-hint">پاکت رو لمس کن</div>
-                </div>
-            </div>
-
-            <!-- Gallery -->
-            <div class="gallery-section reveal">
-                <h2 class="section-title">قاب‌های خاطره‌انگیز 📸</h2>
-                <div class="polaroid-grid">
-                    <div id="polaroid-1" class="polaroid interactive" style="--rot: -4;">
-                        <div class="photo-placeholder"><i class="fa-solid fa-cake-candles"></i></div>
-                        <p>اولین کیکی که باهم خوردیم</p>
-                    </div>
-                    <div id="polaroid-2" class="polaroid interactive" style="--rot: 3;">
-                        <div class="photo-placeholder"><i class="fa-solid fa-star"></i></div>
-                        <p>خنده‌های همیشگی‌ات</p>
-                    </div>
-                    <div id="polaroid-3" class="polaroid interactive" style="--rot: -2;">
-                        <div class="photo-placeholder"><i class="fa-solid fa-gift"></i></div>
-                        <p>هدیه‌های کوچک برای تو</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Magic Box : Birthday reasons -->
-            <div class="magic-box-section reveal">
-                <h2 class="section-title">چرا تولدت خاصه؟ ✨</h2>
-                <p style="color: #8a5a3a; margin-bottom: 20px; font-weight: bold;">هر بار کلیک کن، یه دلیل جدید می‌بینی:</p>
-                <div id="compliment-text">"چون تو با بودن‌ات دنیا را روشن‌تر می‌کنی."</div>
-                <button class="btn-magic interactive" id="btn-magic">یک دلیل دیگه 🎁</button>
-            </div>
-
-            <br><br><br>
-        </section>
-    </main>
-
-    <!-- Modal -->
-    <div id="meeting-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p id="modal-text-content" class="modal-message"></p>
-        </div>
+    <div class="audio-player">
+        <button class="player-btn" id="playBtn">▶</button>
+        <span style="font-size: 0.85rem; color: var(--deep-rose); font-weight: bold;">موزیک رویایی تولد 🎧</span>
     </div>
 
     <script>
-        // ============================================================
-        // 1. UTILITIES
-        // ============================================================
-        const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+        // --- ۱. سیستم پیشرفته تولید فشفشه و آتش‌بازی (Canvas Engine) ---
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
 
-        const DOM = {
-            cursor: document.getElementById('custom-cursor'),
-            phase1: document.getElementById('phase-1'),
-            phase2: document.getElementById('phase-2'),
-            btnEnter: document.getElementById('btn-enter-world'),
-            typewriterText: document.getElementById('typewriter-text'),
-            domRainContainer: document.getElementById('dom-rain-container'),
-            canvasContainer: document.getElementById('canvas-container'),
-            canvas: document.getElementById('magic-canvas'),
-            quotes: document.querySelectorAll('.quote-slide'),
-            envelope: document.getElementById('loveEnvelope'),
-            btnMagic: document.getElementById('btn-magic'),
-            complimentText: document.getElementById('compliment-text'),
-            reveals: document.querySelectorAll('.reveal'),
-            musicPlayer: document.getElementById('musicPlayer'),
-            polaroids: document.querySelectorAll('.polaroid'),
-            meetingModal: document.getElementById('meeting-modal'),
-            modalTextContent: document.getElementById('modal-text-content'),
-            closeModalBtn: document.querySelector('.close-button')
-        };
-
-        const Utils = {
-            random: (min, max) => Math.random() * (max - min) + min,
-            randomInt: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
-            randomColor: () => {
-                const colors = ['#f9a95b', '#fbc531', '#f7c948', '#fddcc8', '#ffdbb5'];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-        };
-
-        // ============================================================
-        // 2. TRAILS
-        // ============================================================
-        const createTrail = (x, y, isClick = false) => {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            const emojis = ['🎂', '🎈', '🎁', '✨', '🎉', '🥳'];
-            trail.innerText = emojis[Utils.randomInt(0, emojis.length - 1)];
-            trail.style.left = `${x + Utils.random(-15, 15)}px`;
-            trail.style.top = `${y + Utils.random(-15, 15)}px`;
-            trail.style.fontSize = isClick ? '22px' : '16px';
-            if (isClick) {
-                trail.style.transform = `translate(${Utils.random(-40, 40)}px, ${Utils.random(-40, 40)}px)`;
-            }
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 800);
-        };
-
-        window.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            createTrail(touch.clientX, touch.clientY, true);
-            setTimeout(() => createTrail(touch.clientX, touch.clientY), 50);
-            setTimeout(() => createTrail(touch.clientX, touch.clientY), 100);
-        }, { passive: true });
-
-        if (!isMobile) {
-            window.addEventListener('mousemove', (e) => {
-                DOM.cursor.style.left = `${e.clientX}px`;
-                DOM.cursor.style.top = `${e.clientY}px`;
-                if (Math.random() > 0.85) createTrail(e.clientX, e.clientY);
-            });
-            window.addEventListener('click', (e) => {
-                for (let i = 0; i < 5; i++) createTrail(e.clientX, e.clientY, true);
-            });
-            document.querySelectorAll('.interactive').forEach(el => {
-                el.addEventListener('mouseenter', () => DOM.cursor.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => DOM.cursor.classList.remove('hovering'));
-            });
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        // ============================================================
-        // 3. TYPEWRITER
-        // ============================================================
-        class Typewriter {
-            constructor(element, text, speed = 75) {
-                this.element = element;
-                this.text = text;
-                this.speed = speed;
-                this.index = 0;
-            }
-            type() {
-                if (this.index < this.text.length) {
-                    this.element.innerHTML += this.text.charAt(this.index);
-                    this.index++;
-                    setTimeout(() => this.type(), this.speed);
+        class FireworkParticle {
+            constructor(x, y, color, type = 'normal') {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.type = type;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = type === 'heart' ? (Math.random() * 4 + 2) : (Math.random() * 8 + 1);
+                
+                // فرمول ریاضی برای ذرات قلبی شکل
+                if (type === 'heart') {
+                    // شبیه‌سازی معادله قلب
+                    const t = Math.random() * Math.PI * 2;
+                    this.vx = 16 * Math.pow(Math.sin(t), 3) * 0.2 * (Math.random() * 0.5 + 0.8);
+                    this.vy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * 0.2 * (Math.random() * 0.5 + 0.8);
+                } else {
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
                 }
-            }
-            start() {
-                this.element.innerHTML = '';
-                this.index = 0;
-                this.type();
-            }
-        }
 
-        // ============================================================
-        // 4. DOM RAIN (birthday emojis)
-        // ============================================================
-        class DOMRain {
-            static emojis = ['🎂', '🎈', '🎁', '✨', '🎉', '🥳', '🌟'];
-            static intervalId = null;
+                this.alpha = 1;
+                this.gravity = 0.15;
+                this.friction = 0.96;
+                this.decay = Math.random() * 0.015 + 0.008;
+            }
 
-            static createDrop() {
-                if (DOM.domRainContainer.childElementCount > (isMobile ? 18 : 30)) return;
-                const drop = document.createElement('div');
-                drop.innerText = this.emojis[Utils.randomInt(0, this.emojis.length - 1)];
-                drop.style.position = 'absolute';
-                drop.style.left = `${Utils.random(0, 100)}vw`;
-                drop.style.top = '-10vh';
-                drop.style.fontSize = `${Utils.random(1.5, 3)}rem`;
-                drop.style.opacity = '0.8';
-                const duration = Utils.random(4, 8);
-                drop.style.animation = `fall-down ${duration}s linear forwards`;
-                DOM.domRainContainer.appendChild(drop);
-                setTimeout(() => { if (drop.parentNode) drop.remove(); }, duration * 1000);
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.type === 'heart' ? 4 : 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
             }
-            static start() {
-                this.createDrop();
-                this.intervalId = setInterval(() => this.createDrop(), isMobile ? 500 : 350);
-            }
-            static stop() {
-                clearInterval(this.intervalId);
-                DOM.domRainContainer.innerHTML = '';
-            }
-        }
 
-        // ============================================================
-        // 5. CANVAS ENGINE (floating text & emojis)
-        // ============================================================
-        const ctx = DOM.canvas.getContext('2d');
-
-        class Particle {
-            constructor() { this.reset(true); }
-            reset(initial = false) {
-                this.x = Utils.random(0, window.innerWidth);
-                this.y = initial ? Utils.random(0, window.innerHeight) : -50;
-                this.size = Utils.random(14, 30);
-                this.vx = Utils.random(-0.6, 0.6);
-                this.vy = Utils.random(0.8, 2.2);
-                this.life = Utils.random(0.6, 1);
-                this.decay = Utils.random(0.002, 0.005);
-                this.color = Utils.randomColor();
-                const r = Math.random();
-                if (r < 0.25) { this.text = '🎂';
-                    this.type = 1; } else if (r < 0.5) { this.text = '🎈';
-                    this.type = 1; } else if (r < 0.75) { this.text = '🎁';
-                    this.type = 1; } else { this.text = '✨';
-                    this.type = 1; }
-            }
             update() {
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
                 this.x += this.vx;
                 this.y += this.vy;
-                this.life -= this.decay;
-                if (this.y > window.innerHeight + 50 || this.life <= 0) this.reset();
-            }
-            draw() {
-                ctx.globalAlpha = Math.max(0, this.life);
-                ctx.font = `bold ${this.size}px "${getComputedStyle(document.body).getPropertyValue('--font-family')}"`;
-                ctx.textAlign = 'center';
-                ctx.fillStyle = this.color;
-                ctx.fillText(this.text, this.x, this.y);
+                this.alpha -= this.decay;
             }
         }
 
-        const CanvasEngine = {
-            particles: [],
-            animationId: null,
-            init() {
-                this.resize();
-                window.addEventListener('resize', () => this.resize());
-                const count = isMobile ? 30 : 50;
-                for (let i = 0; i < count; i++) this.particles.push(new Particle());
-            },
-            resize() {
-                DOM.canvas.width = window.innerWidth;
-                DOM.canvas.height = window.innerHeight;
-            },
-            animate() {
-                ctx.clearRect(0, 0, DOM.canvas.width, DOM.canvas.height);
-                this.particles.forEach(p => { p.update();
-                    p.draw(); });
-                this.animationId = requestAnimationFrame(() => this.animate());
-            },
-            start() { this.init();
-                this.animate(); },
-            stop() { cancelAnimationFrame(this.animationId); }
-        };
+        let activeParticles = [];
+        const pinkPalette = ['#ff1493', '#ff69b4', '#ff85a1', '#ffb3c1', '#ffd700', '#fff', '#ff477e'];
 
-        // ============================================================
-        // 6. COMPONENTS
-        // ============================================================
-
-        // ---- Slider ----
-        const Slider = {
-            index: 0,
-            start() {
-                DOM.quotes[0].classList.add('active');
-                setInterval(() => {
-                    DOM.quotes[this.index].classList.remove('active');
-                    this.index = (this.index + 1) % DOM.quotes.length;
-                    DOM.quotes[this.index].classList.add('active');
-                }, 4200);
+        function launchExplosion(x, y, isHeart = false) {
+            const count = isHeart ? 120 : 80;
+            const type = isHeart ? 'heart' : 'normal';
+            for (let i = 0; i < count; i++) {
+                const color = pinkPalette[Math.floor(Math.random() * pinkPalette.length)];
+                activeParticles.push(new FireworkParticle(x, y, color, type));
             }
-        };
+        }
 
-        // ---- Magic Box ----
-        const birthdayReasons = [
-            "چون با بودن‌ات روزها قشنگ‌تر می‌شن.",
-            "چون خنده‌هایت انرژی مثبت داره.",
-            "چون تو یک دوست واقعی‌ای.",
-            "چون همیشه با مهربونیت همه رو تحت تأثیر قرار می‌دی.",
-            "چون استعدادهای خاصی داری که هیچ‌کس نداره.",
-            "چون لحظات باهات به‌یادماندنی‌ترین‌ن.",
-            "چون با تو بودن حس خوبیه.",
-            "چون همیشه می‌تونی بهت اعتماد کرد.",
-            "چون با یه لبخند ساده می‌تونی دل آدم رو ببری.",
-            "چون تو خاصی، سوگند جان."
+        function updateCanvasLoop() {
+            requestAnimationFrame(updateCanvasLoop);
+            ctx.fillStyle = 'rgba(255, 229, 236, 0.25)'; // رد ملو صورتی به جای سیاه
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = activeParticles.length - 1; i >= 0; i--) {
+                const p = activeParticles[i];
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    activeParticles.splice(i, 1);
+                }
+            }
+        }
+        updateCanvasLoop();
+
+        // --- ۲. افکت تعاملی حرکت ماوس (فشفشه دستی مینیاتوری دنباله‌دار) ---
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.25) { // برای بهینه‌سازی پردازش
+                const dot = document.createElement('div');
+                dot.className = 'sparkle-dot';
+                dot.style.left = e.pageX + 'px';
+                dot.style.top = e.pageY + 'px';
+                
+                // رنگ تصادفی فشفشه
+                const colors = ['#ffb703', '#ffc2d1', '#ff1493', '#fff'];
+                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                dot.style.boxShadow = `0 0 8px ${dot.style.background}`;
+                
+                document.body.appendChild(dot);
+                setTimeout(() => dot.remove(), 800);
+            }
+        });
+
+        // --- ۳. عملکرد کیک تولد و فوت کردن شمع ---
+        const cakeContainer = document.getElementById('cakeContainer');
+        const mainCandle = document.getElementById('mainCandle');
+        const cakeStatus = document.getElementById('cakeStatus');
+
+        cakeContainer.addEventListener('click', () => {
+            if (!mainCandle.classList.contains('blown')) {
+                mainCandle.classList.add('blown');
+                cakeStatus.innerText = 'آرزوت برآورده شد! 🎉';
+                cakeStatus.style.background = '#ffb3c1';
+                cakeStatus.style.color = '#white';
+                
+                // افکت آتش‌بازی بزرگ درست بالای کیک
+                const rect = cakeContainer.getBoundingClientRect();
+                launchExplosion(rect.left + rect.width/2, rect.top, true);
+                setTimeout(() => launchExplosion(rect.left + rect.width/3, rect.top - 50), 300);
+                setTimeout(() => launchExplosion(rect.left + (rect.width * 0.7), rect.top - 40), 500);
+            }
+        });
+
+        // --- ۴. عملکرد باز کردن کادوی تولد ---
+        const birthdayGift = document.getElementById('birthdayGift');
+        const letterCard = document.getElementById('letterCard');
+
+        birthdayGift.addEventListener('click', () => {
+            birthdayGift.classList.toggle('open');
+            if (birthdayGift.classList.contains('open')) {
+                letterCard.style.display = 'block';
+                setTimeout(() => {
+                    letterCard.classList.add('show');
+                }, 100);
+                // افکت باران ستاره در نقطه کادو
+                const rect = birthdayGift.getBoundingClientRect();
+                launchExplosion(rect.left + rect.width/2, rect.top, false);
+            } else {
+                letterCard.classList.remove('show');
+                setTimeout(() => {
+                    letterCard.style.display = 'none';
+                }, 500);
+            }
+        });
+
+        // --- ۵. دکمه شلیک فشفشه بزرگ امپراطوری ---
+        const megaFireworkBtn = document.getElementById('megaFireworkBtn');
+        megaFireworkBtn.addEventListener('click', () => {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            
+            // شلیک رگباری آتش‌بازی در نقاط مختلف صفحه
+            launchExplosion(w / 2, h / 2.5, true);
+            setTimeout(() => launchExplosion(w / 4, h / 3, false), 250);
+            setTimeout(() => launchExplosion(w * 0.75, h * 0.35, false), 500);
+            setTimeout(() => launchExplosion(w / 2, h / 4, true), 750);
+            setTimeout(() => launchExplosion(w / 3, h / 2, false), 1000);
+            setTimeout(() => launchExplosion(w * 0.65, h * 0.45, true), 1250);
+        });
+
+        // --- ۶. سیستم موزیک ساز مجازی (Web Audio API Synth) ---
+        // برای اینکه نیازی به فایل خارجی نباشه، یک موزیک ملایم ۸بیتی تولدت مبارک با کد تولید میشه!
+        const playBtn = document.getElementById('playBtn');
+        let audioCtx = null;
+        let isPlaying = false;
+        let timeoutIds = [];
+
+        const birthdayMelody = [
+            {note: 261.63, duration: 400}, {note: 261.63, duration: 400},
+            {note: 293.66, duration: 800}, {note: 261.63, duration: 800},
+            {note: 349.23, duration: 800}, {note: 329.63, duration: 1600},
+            
+            {note: 261.63, duration: 400}, {note: 261.63, duration: 400},
+            {note: 293.66, duration: 800}, {note: 261.63, duration: 800},
+            {note: 392.00, duration: 800}, {note: 349.23, duration: 1600}
         ];
 
-        DOM.btnMagic.addEventListener('click', (e) => {
-            DOM.complimentText.style.opacity = 0;
-            DOM.btnMagic.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                DOM.btnMagic.style.transform = 'scale(1)';
-                const randomMsg = birthdayReasons[Utils.randomInt(0, birthdayReasons.length - 1)];
-                DOM.complimentText.innerText = `"${randomMsg}"`;
-                DOM.complimentText.style.opacity = 1;
-                const rect = DOM.btnMagic.getBoundingClientRect();
-                for (let i = 0; i < 6; i++) createTrail(rect.left + rect.width / 2, rect.top + rect.height / 2, true);
-            }, 300);
-        });
-
-        // ---- Envelope ----
-        DOM.envelope.addEventListener('click', function() {
-            this.classList.toggle('open');
-            if (this.classList.contains('open')) {
-                document.querySelector('.click-hint').style.display = 'none';
-                const rect = this.getBoundingClientRect();
-                for (let i = 0; i < 12; i++) {
-                    setTimeout(() => createTrail(rect.left + rect.width / 2, rect.top, true), i * 80);
-                }
-            }
-        });
-
-        // ---- Music Player ----
-        DOM.musicPlayer.addEventListener('click', function() {
-            this.classList.toggle('expanded');
-            if (this.classList.contains('expanded')) {
-                this.classList.add('playing');
-                const infoSpan = this.querySelector('.music-info span');
-                infoSpan.innerText = '🎶 آهنگ شاد تولد (اگه دوست داری یه آهنگ خاص بفرست)';
-            } else {
-                this.classList.remove('playing');
-                const infoSpan = this.querySelector('.music-info span');
-                infoSpan.innerText = 'برای سوگند جان';
-            }
-        });
-
-        // ---- Polaroids (mobile touch fix) ----
-        if (isMobile) {
-            DOM.polaroids.forEach(p => {
-                p.addEventListener('click', () => {
-                    DOM.polaroids.forEach(el => el.classList.remove('active-touch'));
-                    p.classList.add('active-touch');
-                });
-            });
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.polaroid') && !e.target.closest('.modal-content')) {
-                    DOM.polaroids.forEach(p => p.classList.remove('active-touch'));
-                }
-            });
+        function playTone(freq, duration, startTime) {
+            if (!audioCtx) return;
+            
+            let osc = audioCtx.createOscillator();
+            let gainNode = audioCtx.createGain();
+            
+            osc.type = 'sine'; // صدای ملایم سینوسی
+            osc.frequency.value = freq;
+            
+            gainNode.gain.setValueAtTime(0.1, startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration/1000);
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start(startTime);
+            osc.stop(startTime + duration/1000);
         }
 
-        // ---- Modal (polaroid messages) ----
-        const modalMessages = {
-            'polaroid-1': 'یادش بخیر اون کیکی که باهم خوردیم… امیدوارم بازم بتونیم جشن بگیریم 🎂',
-            'polaroid-2': 'خنده‌های تو همیشه دلمو شاد می‌کنه. امیدوارم همیشه بخندی 😊',
-            'polaroid-3': 'این یه هدیه‌ی کوچیک بود برای تو… ولی می‌دونم که ارزشمندترین چیزا تو دل ماست 🎁'
-        };
+        function startMelodyLoop() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let currentTime = audioCtx.currentTime;
+            let currentDelay = 0;
 
-        ['polaroid-1', 'polaroid-2', 'polaroid-3'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('click', () => {
-                    DOM.modalTextContent.innerText = modalMessages[id];
-                    DOM.meetingModal.style.display = 'block';
-                    setTimeout(() => { DOM.meetingModal.classList.add('open'); }, 10);
-                });
+            birthdayMelody.forEach((noteObj) => {
+                let id = setTimeout(() => {
+                    if(isPlaying) playTone(noteObj.note, noteObj.duration, audioCtx.currentTime);
+                }, currentDelay);
+                timeoutIds.push(id);
+                currentDelay += noteObj.duration + 50;
+            });
+
+            // تکرار حلقه موزیک
+            let loopId = setTimeout(() => {
+                if (isPlaying) startMelodyLoop();
+            }, currentDelay);
+            timeoutIds.push(loopId);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                isPlaying = true;
+                playBtn.innerText = '⏸';
+                startMelodyLoop();
+            } else {
+                isPlaying = false;
+                playBtn.innerText = '▶';
+                timeoutIds.forEach(id => clearTimeout(id));
+                timeoutIds = [];
             }
         });
 
-        const closeModal = () => {
-            DOM.meetingModal.classList.remove('open');
-            setTimeout(() => { DOM.meetingModal.style.display = 'none'; }, 400);
-        };
-        DOM.closeModalBtn.addEventListener('click', closeModal);
-        window.addEventListener('click', (event) => {
-            if (event.target === DOM.meetingModal) closeModal();
-        });
+        // --- ۷. جابجایی اکتیو منو در زمان اسکرول ---
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-item');
 
-        // ---- Reveal on scroll ----
-        const checkReveal = () => {
-            const triggerBottom = window.innerHeight * 0.9;
-            DOM.reveals.forEach(reveal => {
-                if (reveal.getBoundingClientRect().top < triggerBottom) {
-                    reveal.classList.add('active');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
                 }
             });
-        };
-        DOM.phase2.addEventListener('scroll', checkReveal);
 
-        // ============================================================
-        // 7. TRANSITION
-        // ============================================================
-        const transitionToPhase2 = () => {
-            DOMRain.stop();
-            DOM.phase1.classList.add('hidden-phase');
-
-            setTimeout(() => {
-                DOM.canvasContainer.style.opacity = '1';
-                CanvasEngine.start();
-
-                document.body.classList.add('phase-2-active');
-                DOM.phase2.classList.add('visible-phase');
-
-                Slider.start();
-                setTimeout(() => checkReveal(), 500);
-            }, 800);
-        };
-
-        // ============================================================
-        // 8. INIT
-        // ============================================================
-        window.addEventListener('DOMContentLoaded', () => {
-            const titleText = "🎈 تولدت مبارک سوگند جان! امروز روز خاص توست 🎉";
-            const tw = new Typewriter(DOM.typewriterText, titleText, 70);
-            tw.start();
-
-            DOMRain.start();
-
-            DOM.btnEnter.addEventListener('click', transitionToPhase2);
-            document.querySelector('.birthday-icon').addEventListener('click', transitionToPhase2);
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
         });
-    </script>
 
+        // --- ۸. تولید اتوماتیک ستاره‌های صورتی در بک‌گراند ---
+        const sparklesContainer = document.getElementById('sparkles-container');
+        for (let i = 0; i < 40; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'absolute';
+            sparkle.style.width = Math.random() * 5 + 3 + 'px';
+            sparkle.style.height = sparkle.style.width;
+            sparkle.style.background = '#fff';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            // انیمیشن چشمک زدن ستاره‌ها
+            sparkle.style.animation = `flickerStar ${Math.random() * 3 + 2}s infinite alternate`;
+            sparklesContainer.appendChild(sparkle);
+        }
+
+        // افزودن استایل چشمک‌زن ستاره‌ها به سند
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes flickerStar {
+                0% { opacity: 0.2; transform: scale(0.8); }
+                100% { opacity: 0.9; transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+
+    </script>
 </body>
 </html>
