@@ -3,61 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قصر صورتی تولد سوگند 🌸✨</title>
+    <title>شهربازی تولد سوگند سیسی 🎂✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- بخش اول: متغیرهای رنگی دخترانه و تنظیمات پایه --- */
+        /* --- متغیرهای رنگی تم صورتی شاد و مدرن --- */
         :root {
-            --primary-pink: #ff758f;
+            --primary-pink: #ff477e;
             --light-pink: #ffb3c1;
             --baby-pink: #ffe5ec;
             --deep-rose: #c9184a;
             --gold-sparkle: #ffb703;
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --shadow-pink: rgba(255, 117, 143, 0.3);
+            --text-dark: #5a1834;
+            --text-muted: #8a3a5a;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --shadow-pink: rgba(255, 71, 126, 0.25);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
         body, html {
-            width: 100%;
-            min-height: 100vh;
+            width: 100%; min-height: 100vh;
             font-family: 'Vazirmatn', sans-serif;
             background-color: var(--baby-pink);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            color: var(--text-dark);
+            overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* اسکرول‌بار سفارشی و صورتی */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--baby-pink);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-pink);
-            border-radius: 10px;
+        /* اسکرول‌بار سفارشی صورتی */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--baby-pink); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-pink); border-radius: 10px; }
+
+        /* --- اینترو اولیه --- */
+        #intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ff477e, #c9184a);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 1.2s ease-in-out, visibility 1.2s;
         }
 
-        /* --- بخش دوم: انیمیشن‌های بک‌گراند و اتمسفر سایت --- */
+        .intro-text {
+            font-size: 2.5rem; font-family: 'Lalezar', cursive; color: #fff;
+            text-align: center; line-height: 1.8; text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInOut 4.5s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.9); }
+            15% { opacity: 1; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.1); }
+        }
+
+        /* --- پس زمینه متحرک --- */
         .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 30%, #ffb3c1 70%, #ff85a1 100%);
-            background-size: 400% 400%;
-            animation: flowBackground 20s ease infinite;
-            z-index: -3;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1, #ffb3c1, #ff85a1);
+            background-size: 400% 400%; animation: flowBackground 15s ease infinite; z-index: -3;
         }
 
         @keyframes flowBackground {
@@ -66,802 +69,416 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* ذرات درخشان معلق */
-        #sparkles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* کانواس آتش‌بازی اصلی */
         #fireworks-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 999;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 99;
         }
 
-        /* --- بخش سوم: هدر و منوی ناوبری شناور --- */
+        /* --- بادکنک‌های متحرک --- */
+        .balloons-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute; bottom: -100px;
+            width: 50px; height: 65px; background: var(--primary-pink);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            opacity: 0.7; animation: floatUp var(--duration) ease-in infinite;
+        }
+        
+        .balloon::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            border-left: 5px solid transparent; border-right: 5px solid transparent;
+            border-bottom: 10px solid var(--primary-pink);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-50vh) translateX(30px) rotate(10deg); }
+            100% { transform: translateY(-110vh) translateX(-30px) rotate(-10deg); }
+        }
+
+        /* --- منوی ناوبری --- */
         .navbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 10px 30px;
-            border-radius: 40px;
-            display: flex;
-            gap: 20px;
-            box-shadow: 0 10px 30px var(--shadow-pink);
-            z-index: 100;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); padding: 10px 20px; border-radius: 40px;
+            display: flex; gap: 10px; box-shadow: 0 10px 30px var(--shadow-pink); z-index: 100;
         }
 
         .nav-item {
-            color: var(--deep-rose);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 5px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            color: var(--deep-rose); text-decoration: none; font-weight: 700;
+            font-size: 0.9rem; padding: 6px 15px; border-radius: 20px; transition: all 0.3s ease;
         }
 
         .nav-item:hover, .nav-item.active {
-            background-color: var(--primary-pink);
-            color: white;
+            background-color: var(--primary-pink); color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
         }
 
-        /* --- بخش چهارم: ساختار محتوایی اصلی (سکشن‌ها) --- */
+        /* --- ساختار بدنه --- */
+        #main-content {
+            opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out; position: relative;
+        }
+
         .main-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 120px 20px 60px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 100px;
+            max-width: 800px; margin: 0 auto; padding: 100px 20px 60px 20px;
+            display: flex; flex-direction: column; gap: 60px; position: relative; z-index: 5;
         }
 
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-height: 80vh;
+        /* کلاس‌های مشترک شیشه‌ای */
+        .glass-box {
+            background: var(--glass-bg); border: 2px solid var(--glass-border);
+            backdrop-filter: blur(15px); padding: 40px 30px; border-radius: 30px;
+            box-shadow: 0 20px 50px var(--shadow-pink); text-align: center;
         }
 
-        /* افکت مرواریدی تبریک اصلی */
-        .main-title-box {
-            background: var(--glass-bg);
-            border: 2px solid var(--glass-border);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 40px 60px;
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(255, 117, 143, 0.4);
-            animation: floatCard 6s ease-in-out infinite;
-            position: relative;
+        /* --- بخش تایپ ماشین تحریر --- */
+        .typing-container {
+            font-size: 1.3rem; font-weight: bold; color: var(--deep-rose);
+            min-height: 60px; margin-top: 20px; display: inline-block;
+            border-bottom: 3px solid var(--primary-pink); padding-bottom: 5px;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(1deg); }
-        }
+        .cursor { animation: blink 0.7s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .main-title-box h1 {
-            font-family: 'Lalezar', cursive;
-            font-size: 4rem;
-            background: linear-gradient(45deg, var(--deep-rose), #ff477e, #ff758f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.05));
+        /* --- موزیک پلیر --- */
+        .music-player {
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
         }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--deep-rose);
-            font-weight: 700;
-            margin-bottom: 25px;
+        .play-btn {
+            background: linear-gradient(45deg, #ff1493, var(--primary-pink));
+            color: white; border: none; padding: 15px 40px; font-size: 1.2rem;
+            font-family: 'Vazirmatn'; font-weight: 900; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4); transition: transform 0.3s;
+            display: flex; align-items: center; gap: 10px;
         }
-
-        /* --- بخش پنجم: کیک تولد تعاملی سه بعدی (CSS Art) --- */
-        .cake-container {
-            margin-top: 50px;
-            position: relative;
-            cursor: pointer;
+        .play-btn:hover { transform: scale(1.05); }
+        .music-waves {
+            display: flex; gap: 5px; height: 30px; align-items: flex-end; opacity: 0; transition: opacity 0.3s;
         }
-
-        .cake {
-            position: relative;
-            width: 200px;
-            height: 140px;
-            background: #fec5bb;
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        .music-waves.playing { opacity: 1; }
+        .wave {
+            width: 6px; background: var(--deep-rose); border-radius: 3px;
+            animation: bounceWave 0.5s infinite alternate;
         }
+        .wave:nth-child(2) { animation-delay: 0.2s; }
+        .wave:nth-child(3) { animation-delay: 0.4s; }
+        .wave:nth-child(4) { animation-delay: 0.1s; }
+        @keyframes bounceWave { 0% { height: 5px; } 100% { height: 30px; } }
 
-        .cake::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 200px;
-            height: 20px;
-            background: #fae1dd;
+        /* --- کارت‌های سه‌بعدی خاطرات --- */
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px;
         }
-
-        .cake::after {
-            content: '';
-            position: absolute;
-            top: 80px;
-            left: 0;
-            width: 200px;
-            height: 20px;
-            background: #f8ad9d;
+        .flip-card {
+            background-color: transparent; height: 250px; perspective: 1000px; cursor: pointer;
         }
-
-        .cream-top {
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background: #ffffff;
-            border-radius: 20px;
-            display: flex;
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d;
         }
-
-        .candle {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 50px;
-            background: linear-gradient(to right, #ffb3c1, #fff);
-            border-radius: 5px;
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; text-align: center; box-shadow: 0 10px 20px var(--shadow-pink); border: 2px solid var(--glass-border);
         }
+        .flip-card-front { background: var(--baby-pink); color: var(--deep-rose); font-size: 1.5rem; font-family: 'Lalezar'; }
+        .flip-card-back { background: var(--primary-pink); color: white; transform: rotateY(180deg); font-weight: bold; font-size: 1.1rem; }
 
-        .flame {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 25px;
-            background: orange;
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 15px orange;
-            animation: flicker 0.6s infinite alternate;
+        /* بقیه استایل‌های قبلی (کیک، دکمه‌ها و...) */
+        .birthday-badge {
+            background: linear-gradient(135deg, #ffd700, #ffb703); color: #fff; padding: 8px 20px;
+            border-radius: 25px; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 183, 3, 0.4); margin-bottom: 20px; display: inline-block;
         }
+        h1.main-title { font-family: 'Lalezar'; font-size: 2.8rem; color: var(--deep-rose); text-shadow: 2px 2px 0px #fff; margin-bottom: 20px; }
+        
+        .cake-container { margin-top: 40px; position: relative; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        .cake { position: relative; width: 180px; height: 120px; background: #fec5bb; border-radius: 15px 15px 0 0; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .cake::before { content: ''; position: absolute; top: 30px; left: 0; width: 180px; height: 15px; background: #fae1dd; }
+        .cake::after { content: ''; position: absolute; top: 70px; left: 0; width: 180px; height: 15px; background: #f8ad9d; }
+        .cream-top { position: absolute; top: -10px; left: 0; width: 100%; height: 25px; background: #ffffff; border-radius: 20px; }
+        .candle { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); width: 14px; height: 45px; background: linear-gradient(to right, var(--primary-pink), #ffb3c1); border-radius: 5px; }
+        .flame { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 12px; height: 22px; background: #ffb703; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px #ffb703; animation: flicker 0.6s infinite alternate; }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-50%) scale(1.1) skewX(4deg); } }
+        .candle.blown .flame { display: none; }
 
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1); }
-            100% { transform: translateX(-50%) scale(1.1) skewX(5deg); }
+        .btn-magic {
+            background: linear-gradient(45deg, var(--primary-pink), #ff1493); color: white; border: none; padding: 18px 45px;
+            font-size: 1.3rem; font-family: 'Vazirmatn'; font-weight: 900; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 71, 126, 0.5); transition: all 0.3s ease;
         }
+        .btn-magic:hover { transform: translateY(-4px) scale(1.05); }
 
-        .candle.blown .flame {
-            display: none;
+        /* پاپ آپ */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(201, 24, 74, 0.8);
+            backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; z-index: 10000; transition: all 0.4s ease;
         }
-
-        .cake-instruction {
-            margin-top: 15px;
-            font-size: 1rem;
-            color: var(--deep-rose);
-            font-weight: bold;
-            background: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .popup-overlay.active { opacity: 1; visibility: visible; }
+        .popup-box {
+            background: #fff; border: 4px solid var(--primary-pink); width: 90%; max-width: 450px;
+            border-radius: 30px; padding: 40px 30px; text-align: center; transform: scale(0.8); transition: all 0.4s ease;
         }
-
-        /* --- بخش ششم: باکس کادو و نامه تعاملی --- */
-        .gift-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 0;
-        }
-
-        .gift-box {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            background-color: #ff477e;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 15px 30px var(--shadow-pink);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .gift-box:hover {
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        .gift-lid {
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            width: 170px;
-            height: 30px;
-            background-color: #ff5c8a;
-            border-radius: 5px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            transition: transform 0.5s ease;
-        }
-
-        .gift-box.open .gift-lid {
-            transform: translateY(-80px) rotate(-15deg);
-            opacity: 0;
-        }
-
-        .gift-ribbon-v {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 100%;
-            background-color: var(--gold-sparkle);
-        }
-
-        .gift-ribbon-h {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            width: 100%;
-            height: 30px;
-            background-color: var(--gold-sparkle);
-        }
-
-        /* پاکت نامه پنهان داخل کادو */
-        .letter-card {
-            max-width: 600px;
-            width: 100%;
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            margin-top: 30px;
-            display: none;
-            border: 2px dashed var(--primary-pink);
-            transform: scale(0.8);
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-
-        .letter-card.show {
-            display: block;
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .letter-text {
-            font-size: 1.15rem;
-            color: #4a4a4a;
-            line-height: 2;
-            text-align: justify;
-        }
-
-        /* --- بخش هفتم: بورد آرزوها و کارت‌های جادویی --- */
-        .wishes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            width: 100%;
-        }
-
-        .wish-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wish-card::before {
-            content: '🌸';
-            position: absolute;
-            bottom: -10px;
-            left: -10px;
-            font-size: 4rem;
-            opacity: 0.1;
-        }
-
-        .wish-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px var(--shadow-pink);
-            border-color: var(--primary-pink);
-        }
-
-        .wish-card h3 {
-            color: var(--deep-rose);
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-        }
-
-        /* --- بخش هشتم: دکمه بزرگ شلیک فشفشه دستی --- */
-        .feshfeshe-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #ff85a1, #ffb3c1);
-            padding: 50px;
-            border-radius: 40px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 15px 40px var(--shadow-pink);
-        }
-
-        .feshfeshe-btn {
-            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffd700);
-            background-size: 200% 200%;
-            animation: gradientBtn 3s linear infinite;
-            border: none;
-            padding: 20px 50px;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: white;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
-            transition: all 0.3s ease;
-            margin-top: 25px;
-        }
-
-        @keyframes gradientBtn {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .feshfeshe-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
-        }
-
-        /* موزیک پلیر شیک فانتزی */
-        .audio-player {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid var(--glass-border);
-            padding: 15px 30px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .player-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-pink);
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .section-title {
-            font-family: 'Lalezar', cursive;
-            font-size: 2.5rem;
-            text-align: center;
-            color: var(--deep-rose);
-            margin-bottom: 40px;
-        }
-
-        /* هدیه متحرک ماوس */
-        .sparkle-dot {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--gold-sparkle);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            animation: fadeOutSparkle 0.8s linear forwards;
-        }
-
-        @keyframes fadeOutSparkle {
-            0% { opacity: 1; transform: scale(1) translateY(0); }
-            100% { opacity: 0; transform: scale(0.2) translateY(20px); }
+        .popup-overlay.active .popup-box { transform: scale(1); }
+        .popup-box h2 { color: var(--deep-rose); margin-bottom: 20px; font-size: 1.8rem; font-family: 'Lalezar'; }
+        .popup-close {
+            background: linear-gradient(45deg, var(--gold-sparkle), #ff8c00); color: #fff; border: none;
+            padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-gradient"></div>
-    <div id="sparkles-container"></div>
-    <canvas id="fireworks-canvas"></canvas>
-
-    <nav class="navbar">
-        <a href="#hero" class="nav-item active">خوش‌آمدی</a>
-        <a href="#gift" class="nav-item">صندوقچه کادو</a>
-        <a href="#wishes" class="nav-item">آرزوهای قشنگ</a>
-    </nav>
-
-    <div class="main-wrapper">
-
-        <section id="hero" class="hero-section">
-            <div class="main-title-box">
-                <h1>سوگند جان تولدت مبارک 💕</h1>
-                <p class="subtitle">امروز روز زیباتر شدن دنیاست...</p>
-                <p style="color: #666; max-width: 500px; margin: 0 auto; line-height: 1.8;">
-                    خوش‌آمدی به قصر اختصاصی تولدت! تمام این صفحه با عشق و برای درخشش تو دیزاین شده. روی شمع کلیک کن تا جادوی فشفشه‌ها شروع بشه!
-                </p>
-            </div>
-
-            <div class="cake-container" id="cakeContainer">
-                <div class="candle" id="mainCandle"><div class="flame"></div></div>
-                <div class="cake">
-                    <div class="cream-top"></div>
-                </div>
-                <div class="cake-instruction" id="cakeStatus">آرزو کن و شمع رو فوت کن! (کلیک کن) 🎂</div>
-            </div>
-        </section>
-
-        <section id="gift" class="gift-section">
-            <h2 class="section-title">یک سورپرایز درون صندوقچه... 🎁</h2>
-            <div class="gift-box" id="birthdayGift">
-                <div class="gift-lid"></div>
-                <div class="gift-ribbon-v"></div>
-                <div class="gift-ribbon-h"></div>
-            </div>
-
-            <div class="letter-card" id="letterCard">
-                <h2 style="color: var(--deep-rose); margin-bottom: 20px; font-family: 'Lalezar'">نامه‌ای برای دختر بهار / تابستان 💌</h2>
-                <div class="letter-text">
-                    سوگند عزیزم، بعضی از آدم‌ها با آمدنشان به این دنیا، رنگ و بوی تازه‌ای به زندگی می‌بخشند. تو دقیقاً همان فردی هستی که با لبخندهای قشنگت، با مهربانی بی‌اندازه قلب کوچک و دخترانه‌ات و با حضور پر از مهرت، دنیا را به جای بهتری برای زندگی تبدیل کرده‌ای. <br><br>
-                    در روز میلادت، از صمیم قلبم آرزو می‌کنم که چرخ روزگار دقیقاً بر وفق مرادت بچرخد. آرزو می‌کنم هیچ‌وقت اشک به چشم‌های زیبایت نیاید مگر از سر شوق؛ هیچ‌وقت خنده از روی لب‌هایت محو نشود و هر روزت پر از موفقیت، هیجان، کادوهای رنگارنگ و حس‌های ناب پاستلی باشد. تو شایسته بهترین قله‌های این جهانی و مطمئنم سال جدید زندگیت، سال انفجار آرزوهای طلایی‌ات خواهد بود. تولدت مبارک ستاره درخشان ما! ✨🌸
-                </div>
-            </div>
-        </section>
-
-        <section id="wishes">
-            <h2 class="section-title">آرزوهای صورتی برای سوگند 💖</h2>
-            <div class="wishes-grid">
-                <div class="wish-card">
-                    <h3>آرزوی درخشش ⭐️</h3>
-                    <p style="color: #555; line-height: 1.7;">امیدوارم امسال به تمام اهدافی که توی دفترچه یادداشتت نوشتی برسی و مثل الماس توی همه مراحل زندگیت بدرخشی دختر قشنگ.</p>
-                </div>
-                <div class="wish-card">
-                    <h3>آرزوی آرامش 🍃</h3>
-                    <p style="color: #555; line-height: 1.7;">الهی دلت همیشه آروم باشه، دور و برت پر از آدم‌های امن و واقعی باشه و هر روزت رو با یک فرکانس مثبت و عالی شروع کنی.</p>
-                </div>
-                <div class="wish-card">
-                    <h3>آرزوی شادی‌های بی‌دلیل 🎈</h3>
-                    <p style="color: #555; line-height: 1.7;">از اون خنده‌های از ته دل برات آرزو می‌کنم که لپات گل بندازه و قند توی دلت آب بشه! همیشه شاد و پرانرژی بمونی.</p>
-                </div>
-                <div class="wish-card">
-                    <h3>آرزوی سلامتی و عشق 🌸</h3>
-                    <p style="color: #555; line-height: 1.7;">سلامتی، مهم‌ترین داراییه و در کنارش عشقی عمیق و پایدار از طرف خانواده و دوستات که همیشه پشتوانت باشن.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="feshfeshe-panel">
-            <h2 style="font-family: 'Lalezar'; font-size: 2.5rem; margin-bottom: 10px;">آسمان شب به افتخار تو نورانی میشه! 🎆</h2>
-            <p>روی دکمه زیر کلیک کن تا آسمون رو پر از فشفشه‌های صورتی، طلایی و قلبی کنی!</p>
-            <button class="feshfeshe-btn" id="megaFireworkBtn">شلیک فشفشه‌های جادویی 💥</button>
-        </section>
-
+    <!-- پرده خوش‌آمدگویی -->
+    <div id="intro-overlay">
+        <div class="intro-text">سلام سوگند... 👋 ✨<br>آماده‌ای برای یه شهربازی افسانه‌ای؟ 🎢🎂</div>
     </div>
 
-    <div class="audio-player">
-        <button class="player-btn" id="playBtn">▶</button>
-        <span style="font-size: 0.85rem; color: var(--deep-rose); font-weight: bold;">موزیک رویایی تولد 🎧</span>
+    <!-- بک گراند و بادکنک ها -->
+    <div class="bg-gradient"></div>
+    <div class="balloons-container" id="balloons"></div>
+
+    <div id="main-content">
+        <canvas id="fireworks-canvas"></canvas>
+
+        <nav class="navbar">
+            <a href="#hero" class="nav-item active">تبریک</a>
+            <a href="#music" class="nav-item">موزیک</a>
+            <a href="#memories" class="nav-item">خاطرات</a>
+            <a href="#gift" class="nav-item">سورپرایز</a>
+        </nav>
+
+        <div class="main-wrapper">
+
+            <!-- بخش اصلی -->
+            <section id="hero" class="glass-box" style="animation: floatCard 6s ease-in-out infinite;">
+                <div class="birthday-badge">🎈 Happy Birthday Sogand 🎈</div>
+                <h1 class="main-title">تولدت مبارک سوگند سیسی🤭</h1>
+                
+                <p style="font-size: 1.15rem; line-height: 2; text-align: justify;">
+                    نمیدونم بهت گفتم یا نه، ولی تو قشنگ ترین، خوش خنده ترین و مهربون ترین دختر روی زمینی. از همون روزی که اومدم تو گپ سروش فهمیدم که رفاقت ما شروع شده هست و ادامه خواهد داشت. شاید آدم خوبی نباشم ولی تو همیشه در اوج مهربونی خودت تو این دنیای بی رحمی. ✨
+                </p>
+                
+                <div class="typing-container">
+                    <span id="typed-text"></span><span class="cursor">|</span>
+                </div>
+
+                <!-- کیک تولد -->
+                <div class="cake-container" id="cakeContainer">
+                    <div class="candle" id="mainCandle"><div class="flame"></div></div>
+                    <div class="cake"><div class="cream-top"></div></div>
+                    <p style="margin-top: 15px; font-weight: bold; color: var(--deep-rose);">آرزو کن و رو کیک کلیک کن! 🎂</p>
+                </div>
+            </section>
+
+            <!-- بخش موزیک -->
+            <section id="music" class="glass-box">
+                <h2 style="font-family: 'Lalezar'; color: var(--deep-rose); margin-bottom: 20px;">دی‌جی، آهنگو پلی کن! 🎧</h2>
+                <div class="music-player">
+                    <!-- لینک آهنگ دلخواهت رو تو src زیر بذار -->
+                    <audio id="bdayAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+                    <button class="play-btn" id="playBtn" onclick="toggleMusic()">
+                        ▶️ پخش آهنگ تولد
+                    </button>
+                    <div class="music-waves" id="waves">
+                        <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- بخش کارت های خاطره -->
+            <section id="memories" class="glass-box">
+                <h2 style="font-family: 'Lalezar'; color: var(--deep-rose); margin-bottom: 10px;">کارت‌های جادویی ✨</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">موس رو ببر روی کارت‌ها تا برگردن!</p>
+                <div class="cards-grid">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">خصلت بارزت 💖</div>
+                            <div class="flip-card-back">همیشه خوش‌خنده و پرانرژی هستی، حتی تو روزای سخت!</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">بهترین خاطره 🌟</div>
+                            <div class="flip-card-back">آشناییمون تو گروه سروش که باعث این رفاقت موندگار شد!</div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">قول رفاقت 🤝</div>
+                            <div class="flip-card-back">مثل یه داداش همیشه پشتتم، تو هر شرایطی!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- بخش دکمه سورپرایز -->
+            <section id="gift" class="glass-box">
+                <button class="btn-magic" onclick="showPopup()">🎁 کادوی اصلی رو باز کن!</button>
+                
+                <h2 style="font-family: 'Lalezar'; color: var(--deep-rose); margin-top: 50px; margin-bottom: 15px;">بمباران فشفشه! 🎆</h2>
+                <button class="play-btn" style="margin: 0 auto; background: var(--gold-sparkle); color: #000;" id="megaFireworkBtn">شلیک رگباری فشفشه 💥</button>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- پاپ آپ کادو -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-box">
+            <h2>گلیلیلیلیلیلیلیلی 🎉🎂❤️</h2>
+            <p>تورو به اندازه خواهر نداشتم دوست دارم، پس هروقت کاری باری مشکلی داشتی من هم جای داداشت. ❤️ تولدت کلییییی مبارک بهترین آبجی دنیا! 🥳💃</p>
+            <button class="popup-close" onclick="closePopup()">دمت گرم! 🕯</button>
+        </div>
     </div>
 
     <script>
-        // --- ۱. سیستم پیشرفته تولید فشفشه و آتش‌بازی (Canvas Engine) ---
+        // ساخت بادکنک‌ها
+        function createBalloons() {
+            const container = document.getElementById('balloons');
+            for(let i=0; i<15; i++) {
+                let balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.background = Math.random() > 0.5 ? 'var(--primary-pink)' : 'var(--light-pink)';
+                balloon.style.setProperty('--duration', (Math.random() * 5 + 7) + 's');
+                balloon.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(balloon);
+            }
+        }
+
+        // افکت ماشین تحریر
+        const textToType = "امیدوارم امسال به تک تک آرزوهای قشنگت برسی و همیشه بخندی... 🌸";
+        let typeIndex = 0;
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                document.getElementById("typed-text").innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            createBalloons();
+            setTimeout(() => {
+                document.getElementById('intro-overlay').style.opacity = '0';
+                document.getElementById('intro-overlay').style.visibility = 'hidden';
+                document.getElementById('main-content').style.visibility = 'visible';
+                document.getElementById('main-content').style.opacity = '1';
+                resizeCanvas();
+                setTimeout(typeWriter, 1000); // شروع تایپ بعد از لود
+            }, 4600);
+        });
+
+        // موزیک پلیر
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bdayAudio');
+            const btn = document.getElementById('playBtn');
+            const waves = document.getElementById('waves');
+            
+            if(isPlaying) {
+                audio.pause();
+                btn.innerHTML = '▶️ پخش آهنگ تولد';
+                waves.classList.remove('playing');
+            } else {
+                audio.play();
+                btn.innerHTML = '⏸ توقف آهنگ';
+                waves.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // موتور آتش‌بازی
         const canvas = document.getElementById('fireworks-canvas');
         const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
         class FireworkParticle {
-            constructor(x, y, color, type = 'normal') {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.type = type;
-                
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
                 const angle = Math.random() * Math.PI * 2;
-                const speed = type === 'heart' ? (Math.random() * 4 + 2) : (Math.random() * 8 + 1);
-                
-                // فرمول ریاضی برای ذرات قلبی شکل
-                if (type === 'heart') {
-                    // شبیه‌سازی معادله قلب
-                    const t = Math.random() * Math.PI * 2;
-                    this.vx = 16 * Math.pow(Math.sin(t), 3) * 0.2 * (Math.random() * 0.5 + 0.8);
-                    this.vy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * 0.2 * (Math.random() * 0.5 + 0.8);
-                } else {
-                    this.vx = Math.cos(angle) * speed;
-                    this.vy = Math.sin(angle) * speed;
-                }
-
-                this.alpha = 1;
-                this.gravity = 0.15;
-                this.friction = 0.96;
+                const speed = Math.random() * 8 + 1;
+                this.vx = Math.cos(angle) * speed; this.vy = Math.sin(angle) * speed;
+                this.alpha = 1; this.gravity = 0.15; this.friction = 0.94;
                 this.decay = Math.random() * 0.015 + 0.008;
             }
-
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.type === 'heart' ? 4 : 3, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
+                ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color;
+                ctx.fill(); ctx.restore();
             }
-
             update() {
-                this.vx *= this.friction;
-                this.vy *= this.friction;
-                this.vy += this.gravity;
-                this.x += this.vx;
-                this.y += this.vy;
-                this.alpha -= this.decay;
+                this.vx *= this.friction; this.vy *= this.friction; this.vy += this.gravity;
+                this.x += this.vx; this.y += this.vy; this.alpha -= this.decay;
             }
         }
 
         let activeParticles = [];
-        const pinkPalette = ['#ff1493', '#ff69b4', '#ff85a1', '#ffb3c1', '#ffd700', '#fff', '#ff477e'];
+        const fireworkColors = ['#ff1493', '#ffd700', '#ffffff', '#c9184a', '#8a2be2', '#ff477e'];
 
-        function launchExplosion(x, y, isHeart = false) {
-            const count = isHeart ? 120 : 80;
-            const type = isHeart ? 'heart' : 'normal';
-            for (let i = 0; i < count; i++) {
-                const color = pinkPalette[Math.floor(Math.random() * pinkPalette.length)];
-                activeParticles.push(new FireworkParticle(x, y, color, type));
+        function launchExplosion(x, y) {
+            for (let i = 0; i < 90; i++) {
+                activeParticles.push(new FireworkParticle(x, y, fireworkColors[Math.floor(Math.random() * fireworkColors.length)]));
             }
         }
 
         function updateCanvasLoop() {
             requestAnimationFrame(updateCanvasLoop);
-            ctx.fillStyle = 'rgba(255, 229, 236, 0.25)'; // رد ملو صورتی به جای سیاه
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             for (let i = activeParticles.length - 1; i >= 0; i--) {
                 const p = activeParticles[i];
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) {
-                    activeParticles.splice(i, 1);
-                }
+                p.update(); p.draw();
+                if (p.alpha <= 0) activeParticles.splice(i, 1);
             }
         }
         updateCanvasLoop();
 
-        // --- ۲. افکت تعاملی حرکت ماوس (فشفشه دستی مینیاتوری دنباله‌دار) ---
-        window.addEventListener('mousemove', (e) => {
-            if (Math.random() < 0.25) { // برای بهینه‌سازی پردازش
-                const dot = document.createElement('div');
-                dot.className = 'sparkle-dot';
-                dot.style.left = e.pageX + 'px';
-                dot.style.top = e.pageY + 'px';
-                
-                // رنگ تصادفی فشفشه
-                const colors = ['#ffb703', '#ffc2d1', '#ff1493', '#fff'];
-                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
-                dot.style.boxShadow = `0 0 8px ${dot.style.background}`;
-                
-                document.body.appendChild(dot);
-                setTimeout(() => dot.remove(), 800);
+        // فوت کردن کیک
+        document.getElementById('cakeContainer').addEventListener('click', () => {
+            const candle = document.getElementById('mainCandle');
+            if (!candle.classList.contains('blown')) {
+                candle.classList.add('blown');
+                const rect = document.getElementById('cakeContainer').getBoundingClientRect();
+                launchExplosion(rect.left + rect.width/2, rect.top);
             }
         });
 
-        // --- ۳. عملکرد کیک تولد و فوت کردن شمع ---
-        const cakeContainer = document.getElementById('cakeContainer');
-        const mainCandle = document.getElementById('mainCandle');
-        const cakeStatus = document.getElementById('cakeStatus');
-
-        cakeContainer.addEventListener('click', () => {
-            if (!mainCandle.classList.contains('blown')) {
-                mainCandle.classList.add('blown');
-                cakeStatus.innerText = 'آرزوت برآورده شد! 🎉';
-                cakeStatus.style.background = '#ffb3c1';
-                cakeStatus.style.color = '#white';
-                
-                // افکت آتش‌بازی بزرگ درست بالای کیک
-                const rect = cakeContainer.getBoundingClientRect();
-                launchExplosion(rect.left + rect.width/2, rect.top, true);
-                setTimeout(() => launchExplosion(rect.left + rect.width/3, rect.top - 50), 300);
-                setTimeout(() => launchExplosion(rect.left + (rect.width * 0.7), rect.top - 40), 500);
-            }
-        });
-
-        // --- ۴. عملکرد باز کردن کادوی تولد ---
-        const birthdayGift = document.getElementById('birthdayGift');
-        const letterCard = document.getElementById('letterCard');
-
-        birthdayGift.addEventListener('click', () => {
-            birthdayGift.classList.toggle('open');
-            if (birthdayGift.classList.contains('open')) {
-                letterCard.style.display = 'block';
-                setTimeout(() => {
-                    letterCard.classList.add('show');
-                }, 100);
-                // افکت باران ستاره در نقطه کادو
-                const rect = birthdayGift.getBoundingClientRect();
-                launchExplosion(rect.left + rect.width/2, rect.top, false);
-            } else {
-                letterCard.classList.remove('show');
-                setTimeout(() => {
-                    letterCard.style.display = 'none';
-                }, 500);
-            }
-        });
-
-        // --- ۵. دکمه شلیک فشفشه بزرگ امپراطوری ---
-        const megaFireworkBtn = document.getElementById('megaFireworkBtn');
-        megaFireworkBtn.addEventListener('click', () => {
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            
-            // شلیک رگباری آتش‌بازی در نقاط مختلف صفحه
-            launchExplosion(w / 2, h / 2.5, true);
-            setTimeout(() => launchExplosion(w / 4, h / 3, false), 250);
-            setTimeout(() => launchExplosion(w * 0.75, h * 0.35, false), 500);
-            setTimeout(() => launchExplosion(w / 2, h / 4, true), 750);
-            setTimeout(() => launchExplosion(w / 3, h / 2, false), 1000);
-            setTimeout(() => launchExplosion(w * 0.65, h * 0.45, true), 1250);
-        });
-
-        // --- ۶. سیستم موزیک ساز مجازی (Web Audio API Synth) ---
-        // برای اینکه نیازی به فایل خارجی نباشه، یک موزیک ملایم ۸بیتی تولدت مبارک با کد تولید میشه!
-        const playBtn = document.getElementById('playBtn');
-        let audioCtx = null;
-        let isPlaying = false;
-        let timeoutIds = [];
-
-        const birthdayMelody = [
-            {note: 261.63, duration: 400}, {note: 261.63, duration: 400},
-            {note: 293.66, duration: 800}, {note: 261.63, duration: 800},
-            {note: 349.23, duration: 800}, {note: 329.63, duration: 1600},
-            
-            {note: 261.63, duration: 400}, {note: 261.63, duration: 400},
-            {note: 293.66, duration: 800}, {note: 261.63, duration: 800},
-            {note: 392.00, duration: 800}, {note: 349.23, duration: 1600}
-        ];
-
-        function playTone(freq, duration, startTime) {
-            if (!audioCtx) return;
-            
-            let osc = audioCtx.createOscillator();
-            let gainNode = audioCtx.createGain();
-            
-            osc.type = 'sine'; // صدای ملایم سینوسی
-            osc.frequency.value = freq;
-            
-            gainNode.gain.setValueAtTime(0.1, startTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration/1000);
-            
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            
-            osc.start(startTime);
-            osc.stop(startTime + duration/1000);
+        // پاپ آپ و دکمه‌ها
+        function showPopup() {
+            document.getElementById('popup').classList.add('active');
+            launchExplosion(window.innerWidth / 2, window.innerHeight / 2);
+        }
+        function closePopup() {
+            document.getElementById('popup').classList.remove('active');
         }
 
-        function startMelodyLoop() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            let currentTime = audioCtx.currentTime;
-            let currentDelay = 0;
-
-            birthdayMelody.forEach((noteObj) => {
-                let id = setTimeout(() => {
-                    if(isPlaying) playTone(noteObj.note, noteObj.duration, audioCtx.currentTime);
-                }, currentDelay);
-                timeoutIds.push(id);
-                currentDelay += noteObj.duration + 50;
-            });
-
-            // تکرار حلقه موزیک
-            let loopId = setTimeout(() => {
-                if (isPlaying) startMelodyLoop();
-            }, currentDelay);
-            timeoutIds.push(loopId);
-        }
-
-        playBtn.addEventListener('click', () => {
-            if (!isPlaying) {
-                isPlaying = true;
-                playBtn.innerText = '⏸';
-                startMelodyLoop();
-            } else {
-                isPlaying = false;
-                playBtn.innerText = '▶';
-                timeoutIds.forEach(id => clearTimeout(id));
-                timeoutIds = [];
-            }
+        document.getElementById('megaFireworkBtn').addEventListener('click', () => {
+            const w = window.innerWidth; const h = window.innerHeight;
+            launchExplosion(w/2, h/2.5);
+            setTimeout(() => launchExplosion(w/4, h/3), 250);
+            setTimeout(() => launchExplosion(w*0.75, h*0.35), 500);
         });
 
-        // --- ۷. جابجایی اکتیو منو در زمان اسکرول ---
+        // اسکرول منو
         const sections = document.querySelectorAll('section');
         const navItems = document.querySelectorAll('.nav-item');
-
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute('id');
-                }
+                if (pageYOffset >= section.offsetTop - 150) current = section.getAttribute('id');
             });
-
             navItems.forEach(item => {
                 item.classList.remove('active');
-                if (item.getAttribute('href').includes(current)) {
-                    item.classList.add('active');
-                }
+                if (item.getAttribute('href').includes(current)) item.classList.add('active');
             });
         });
-
-        // --- ۸. تولید اتوماتیک ستاره‌های صورتی در بک‌گراند ---
-        const sparklesContainer = document.getElementById('sparkles-container');
-        for (let i = 0; i < 40; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.style.position = 'absolute';
-            sparkle.style.width = Math.random() * 5 + 3 + 'px';
-            sparkle.style.height = sparkle.style.width;
-            sparkle.style.background = '#fff';
-            sparkle.style.borderRadius = '50%';
-            sparkle.style.top = Math.random() * 100 + 'vh';
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.opacity = Math.random() * 0.7 + 0.3;
-            
-            // انیمیشن چشمک زدن ستاره‌ها
-            sparkle.style.animation = `flickerStar ${Math.random() * 3 + 2}s infinite alternate`;
-            sparklesContainer.appendChild(sparkle);
-        }
-
-        // افزودن استایل چشمک‌زن ستاره‌ها به سند
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes flickerStar {
-                0% { opacity: 0.2; transform: scale(0.8); }
-                100% { opacity: 0.9; transform: scale(1.2); }
-            }
-        `;
-        document.head.appendChild(style);
-
     </script>
 </body>
 </html>
